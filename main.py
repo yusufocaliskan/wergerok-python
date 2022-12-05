@@ -27,7 +27,7 @@ class FerhengApp(QMainWindow):
     targetInput = ""
 
     #Selections
-    fromSelect = ""
+    sourceSelect = ""
     targetSelect = ""
 
     switcherButton = "" 
@@ -43,7 +43,7 @@ class FerhengApp(QMainWindow):
     def __init__(self):
         super(FerhengApp,self).__init__()
         self.createWindow()
-        
+        self.werger = Werger("ku","en")        
 
     def createWindow(self):
         """Creates main windows"""
@@ -68,14 +68,16 @@ class FerhengApp(QMainWindow):
         self.gridLayout = QGridLayout()
         
         #Language selections
-        self.fromSelect = QComboBox()
-        self.fromSelect.addItem('Kurdî')
-        self.fromSelect.addItem('Ingilizî')
-        self.gridLayout.addWidget(self.fromSelect, 0,0)
+        self.sourceSelect = QComboBox()
+        self.sourceSelect.addItem('Kurdî',{"abbr":"ku"})
+        self.sourceSelect.addItem('Ingilizî',{"abbr":"en"})
+        self.sourceSelect.currentIndexChanged.connect(self.setSourceLanguage)
+        self.gridLayout.addWidget(self.sourceSelect, 0,0)
         
         self.targetSelect = QComboBox()
-        self.targetSelect.addItem('Kurdî')
-        self.targetSelect.addItem('Ingilizî')
+        self.targetSelect.addItem('Ingilizî',{"abbr":"en"})
+        self.targetSelect.addItem('Kurdî',{"abbr":"ku"})
+        self.targetSelect.currentIndexChanged.connect(self.setTargetLanguage)
         self.gridLayout.addWidget(self.targetSelect, 0,2)
         
         #Switcher button
@@ -101,11 +103,19 @@ class FerhengApp(QMainWindow):
         self.mainWidget = QWidget();
         self.mainWidget.setLayout(self.gridLayout)
 
+    def setSourceLanguage(self):
+        itemData = self.sourceSelect.itemData(self.sourceSelect.currentIndex())
+        self.werger.setSourceLanguage(itemData["abbr"])
+
+    def setTargetLanguage(self):
+        itemData = self.targetSelect.itemData(self.targetSelect.currentIndex())
+        self.werger.setTargetLanguage(itemData["abbr"])
+
     def eventHandler(self):
         """ Handling events """
-        self.werger = Werger("ku","en")
-        self.statBar.showMessage("Pêl [Enter]'ê bike, gava te qedant.")
         
+        self.statBar.showMessage("Pêl [Enter]'ê bike, gava te qedant.[ "+self.werger.getSourceLanguage()+" ---> "+self.werger.getTargetLanguage()+" ]")
+
         #Whenever the from text is changed
         # is it pressed enter?
         if keyboard.is_pressed('enter'):

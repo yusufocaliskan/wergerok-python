@@ -43,16 +43,23 @@ class Werger:
         return self.result.text
     
     
+    #-----------[setter-getters] ----------- #
+    
     def setTargetLanguage(self, lang ):
         """sets the selected language
             @lang : the abbrevation of the lang """
         self.targetLanguage = lang
+
+    def getTargetLanguage(self):
+        return str(self.targetLanguage)
 
     def setSourceLanguage(self, lang ):
         """sets the selected language
             @lang : the abbrevation of the lang """
         self.sourceLanguage = lang
 
+    def getSourceLanguage(self):
+        return str(self.sourceLanguage)
 
 # if __name__ == "__main__":
 #     #Set the language and start the applications
