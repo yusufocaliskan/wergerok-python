@@ -4,6 +4,8 @@ from PyQt5.QtWidgets import (
     QMainWindow, QHBoxLayout,QVBoxLayout)
 import sys
 import time
+import keyboard
+from getkey import getkey, key
 
 from core.Werger import Werger 
 class FerhengApp(QMainWindow):
@@ -32,11 +34,11 @@ class FerhengApp(QMainWindow):
     #The translator class
     werger = ""
 
+    
     def __init__(self):
         super(FerhengApp,self).__init__()
         self.createWindow()
         self.werger = Werger("en")
-
 
     def createWindow(self):
         """Creates main windows"""
@@ -94,13 +96,14 @@ class FerhengApp(QMainWindow):
         """ Handling events """
         
         #Whenever the from text is changed
-        fromText = self.fromInput.toPlainText()
-        if fromText != "":
-            result = self.werger.translate(fromText)
-            self.targetInput.setPlainText(result)
-        else:
-            self.targetInput.setPlainText("")
-        
+        if keyboard.is_pressed('enter'):
+            fromText = self.fromInput.toPlainText()
+            if fromText != "":
+                result = self.werger.translate(fromText)
+                self.targetInput.setPlainText(result)
+            else:
+                self.targetInput.setPlainText("")
+            
     
     
     
