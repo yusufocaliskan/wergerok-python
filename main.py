@@ -15,7 +15,7 @@ class FerhengApp(QMainWindow):
     """Some defines about main windows"""
     windowWidth = 700
     windowHeight = 400
-    title = 'Ferhengok!'
+    title = 'Wergerok!'
     
     """Layout settings"""
     mainWidget = ""

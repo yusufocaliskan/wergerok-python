@@ -7,14 +7,6 @@ class Werger:
     targetLanguage = 'en'
     sourceLanguage = 'ku' #Kurdish
     
-    #Some more info about language
-    languages = {
-        "kr":{
-            "name": "Kurdî",
-            "slug": "Ku"
-        }
-    }
-
     #Result of the translation
     result = ""
 
