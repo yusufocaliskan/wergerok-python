@@ -1,11 +1,13 @@
 from PyQt5.QtWidgets import (
     QPushButton, QApplication,
-    QWidget, QLabel,QGridLayout,QPlainTextEdit,QComboBox,
+    QWidget, QLabel,QGridLayout,QPlainTextEdit,QComboBox,QStatusBar,
     QMainWindow, QHBoxLayout,QVBoxLayout)
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import *
+
 import sys
 import time
 import keyboard
-from getkey import getkey, key
 
 from core.Werger import Werger 
 class FerhengApp(QMainWindow):
@@ -33,7 +35,10 @@ class FerhengApp(QMainWindow):
     #Werger class
     #The translator class
     werger = ""
-
+    
+    """ some usefull variables """
+    loading = False
+    statusBarMessage = "Silav û rêz!"
     
     def __init__(self):
         super(FerhengApp,self).__init__()
@@ -48,6 +53,10 @@ class FerhengApp(QMainWindow):
 
         #Just to push the gridLayout in it.
         self.createCentralWidget()
+        self.statBar = QStatusBar()
+        self.statBar.showMessage(self.statusBarMessage)
+        self.setStatusBar(self.statBar)
+
         self.setCentralWidget(self.mainWidget)
         self.show()
     
@@ -76,38 +85,39 @@ class FerhengApp(QMainWindow):
         #From input
         self.fromInput = QPlainTextEdit('')
         self.fromInput.textChanged.connect(self.eventHandler)
+        
+        textFont = QFont()
+        textFont.setPointSize(20)
+        self.fromInput.setFont(textFont)
         self.gridLayout.addWidget(self.fromInput, 1,0)
-        
-        #From input
-        self.empty = QLabel('')
-        self.gridLayout.addWidget(self.empty, 1,1)
 
-        #To input
+
+        #target input
         self.targetInput = QPlainTextEdit('')
-        
+        self.targetInput.setFont(textFont)
         self.gridLayout.addWidget(self.targetInput, 1,2)
 
         #main widget        
         self.mainWidget = QWidget();
         self.mainWidget.setLayout(self.gridLayout)
-        
 
     def eventHandler(self):
         """ Handling events """
         
+        self.statBar.showMessage("Pêl [Enter]'ê bike, gava te qedant.")
         #Whenever the from text is changed
+        # is it pressed enter?
         if keyboard.is_pressed('enter'):
             fromText = self.fromInput.toPlainText()
             if fromText != "":
                 result = self.werger.translate(fromText)
                 self.targetInput.setPlainText(result)
+                self.statBar.showMessage("Baş e, çêbû...")
             else:
                 self.targetInput.setPlainText("")
             
     
-    
-    
-
+        
 #Start everything.
 if __name__ == "__main__":
     app = QApplication(sys.argv)

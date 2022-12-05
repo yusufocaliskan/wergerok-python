@@ -1,0 +1,5 @@
+getkey==0.6.5
+googletrans==3.0.0
+googletrans_py==4.0.0
+keyboard==0.13.5
+PyQt5==5.15.7
