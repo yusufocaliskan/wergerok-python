@@ -43,7 +43,7 @@ class FerhengApp(QMainWindow):
     def __init__(self):
         super(FerhengApp,self).__init__()
         self.createWindow()
-        self.werger = Werger("en")
+        
 
     def createWindow(self):
         """Creates main windows"""
@@ -103,8 +103,9 @@ class FerhengApp(QMainWindow):
 
     def eventHandler(self):
         """ Handling events """
-        
+        self.werger = Werger("ku","en")
         self.statBar.showMessage("Pêl [Enter]'ê bike, gava te qedant.")
+        
         #Whenever the from text is changed
         # is it pressed enter?
         if keyboard.is_pressed('enter'):
@@ -112,7 +113,7 @@ class FerhengApp(QMainWindow):
             if fromText != "":
                 result = self.werger.translate(fromText)
                 self.targetInput.setPlainText(result)
-                self.statBar.showMessage("Baş e, çêbû...")
+                self.statBar.showMessage("Baş e, çêbû.")
             else:
                 self.targetInput.setPlainText("")
             

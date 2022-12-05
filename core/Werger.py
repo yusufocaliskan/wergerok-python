@@ -4,13 +4,14 @@ from googletrans import Translator
 class Werger:
 
     #Default selected target language
-    selectedLanguage = ""
+    targetLanguage = 'en'
+    sourceLanguage = 'ku' #Kurdish
     
     #Some more info about language
     languages = {
         "kr":{
             "name": "Kurdî",
-            "slug": "Kr"
+            "slug": "Ku"
         }
     }
 
@@ -20,30 +21,37 @@ class Werger:
     #the translator.
     translator = Translator()
 
-    def __init__(self, selectedLanguage):
-        self.setSelectedLanguage(selectedLanguage)
+    def __init__(self, sourceLang, targetLang):
+        self.setTargetLanguage(targetLang)
+        self.setSourceLanguage(sourceLang)
 
     def terminal(self):
         """ Getting the text will be translated """
 
         while True:
             targetLanguage = input("Select the target language: ")
-            self.setSelectedLanguage(targetLanguage)
+            sourceLanguage = input("Select the target language: ")
+            self.setTargetLanguage(targetLanguage)
+            self.setTargetLanguage(sourceLanguage)
             text = input("Enter the text: ")
-            print("Result("+targetLanguage+") : ",self.translate(text))
+            print("Result("+sourceLanguage+"->"+targetLanguage+") : ",self.translate(text))
 
     def translate(self, text):
         """ Translate the given text """
         
-        self.result = self.translator.translate(text, dest=self.selectedLanguage)
+        self.result = self.translator.translate(text, dest=self.targetLanguage, src=self.sourceLanguage)
         return self.result.text
     
     
-    def setSelectedLanguage(self, lang ):
+    def setTargetLanguage(self, lang ):
         """sets the selected language
             @lang : the abbrevation of the lang """
+        self.targetLanguage = lang
 
-        self.selectedLanguage = lang
+    def setSourceLanguage(self, lang ):
+        """sets the selected language
+            @lang : the abbrevation of the lang """
+        self.sourceLanguage = lang
 
 
 # if __name__ == "__main__":
