@@ -32,6 +32,7 @@ class Werger:
         """ Translate the given text """
         
         self.result = self.translator.translate(text, dest=self.targetLanguage, src=self.sourceLanguage)
+        print(self.result)
         return self.result.text
     
     
