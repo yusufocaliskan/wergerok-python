@@ -1,6 +1,5 @@
 from googletrans import Translator
 
-
 class Werger:
 
     #Default selected target language

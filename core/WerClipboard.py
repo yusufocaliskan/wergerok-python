@@ -11,21 +11,22 @@ class WerClipboard:
         lastCopiedText = self.getLastCopiedText()
         while True:
             if lastCopiedText != clipboard.paste():
-                return True
+                self.saveLastCopiedText()        
+                return
 
     def saveLastCopiedText(self):
         """ Saves the last copied text """
         
-        file = os.open("data/clipboard.txt","w")
-        file.write(clipboard.paste())
-        file.close()
+        with open("data/clipboard.txt","w") as file:
+            file.write(clipboard.paste())
+            file.close()
 
     def getLastCopiedText(self):
         """ Reads the last copy text """
-        file = os.popen("data/clipboard.txt","r")
-        content = file.read()
-        file.close()
-        return str(content)
+        with open("data/clipboard.txt","r") as file:
+            content = file.read()
+            file.close()
+            return str(content)
     
     def paste():
         return clipboard.paste()

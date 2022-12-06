@@ -46,8 +46,6 @@ class FerhengApp(QMainWindow):
         super(FerhengApp,self).__init__()
         self.createWindow()
         self.werger = Werger("ku","en")     
-        werClip = WerClipboard()
-        
 
     def createWindow(self):
         """Creates main windows"""
@@ -143,12 +141,12 @@ class FerhengApp(QMainWindow):
 
     def eventHandler(self):
         """ Handling events """
-        
         ##self.statBar.showMessage("Pêl [Enter]'ê bike, gava te qedant.[ "+self.werger.getSourceLanguage()+" ---> "+self.werger.getTargetLanguage()+" ]")
-
+        print("Not: searching..")
         #Whenever the from text is changed
         # is it pressed enter?
         if keyboard.is_pressed('enter'):
+            print("Searching... presssed enterrr")
             fromText = self.sourceInput.toPlainText()
             if fromText != "":
                 result = self.werger.translate(fromText)
