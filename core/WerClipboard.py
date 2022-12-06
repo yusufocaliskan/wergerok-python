@@ -30,6 +30,7 @@ class WerClipboard:
     def paste():
         return clipboard.paste()
     
+    
     def copy():
         return clipboard.copy()
     
